@@ -10,22 +10,35 @@
 <body>
     <div class="container">
         <h1>Minecraft Server Control</h1>
-        <div class="status-container">
-            <p>Server Status: <span id="status">Offline</span></p>
-        </div>
-        <div class="button-container">
-            <button id="startButton">Start Server</button>
-            <button id="stopButton">Stop Server</button>
-            <button id="statusButton">Check Status</button>
+
+        <!-- Logged Out View -->
+        <div id="loggedOutView">
+            <p>Please log in with Discord to continue.</p>
+            <button id="loginButton">Login with Discord</button>
         </div>
 
-        <div class="whitelist-container">
-            <h2>Whitelist a Player</h2>
-            <div id="whitelist-form">
-                <input type="text" id="usernameInput" placeholder="Enter Minecraft Username">
-                <button id="whitelistButton">Whitelist Me</button>
+        <!-- Logged In View -->
+        <div id="loggedInView" style="display: none;">
+            <p id="welcomeMessage"></p>
+            <div class="status-container">
+                <p>Server Status: <span id="status">Offline</span></p>
             </div>
-            <p id="whitelist-message"></p>
+            <div class="button-container">
+                <button id="startButton">Start Server</button>
+                <button id="stopButton">Stop Server</button>
+                <button id="statusButton">Check Status</button>
+            </div>
+
+            <div id="whitelistSection">
+                <div class="whitelist-container">
+                    <h2>Whitelist a Player</h2>
+                    <div id="whitelist-form">
+                        <input type="text" id="usernameInput" placeholder="Enter Minecraft Username">
+                        <button id="whitelistButton">Whitelist Me</button>p
+                    </div>
+                    <p id="whitelist-message"></p>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

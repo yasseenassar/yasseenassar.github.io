@@ -23,6 +23,27 @@ h1 {
     text-shadow: 2px 2px #000000;
 }
 
+#loginButton {
+    background-color: #5865F2; /* Discord Blurple */
+    color: white;
+    padding: 15px 32px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#loginButton:hover {
+    background-color: #4f5bda;
+}
+
+#welcomeMessage {
+    font-size: 1.2em;
+    color: #5865F2;
+}
+
 .status-container {
     margin: 20px 0;
     font-size: 1.2em;

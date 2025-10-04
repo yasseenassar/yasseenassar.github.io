@@ -1,130 +1,175 @@
-const startButton = document.getElementById('startButton');
-const stopButton = document.getElementById('stopButton');
-const statusButton = document.getElementById('statusButton');
-const statusSpan = document.getElementById('status');
-const usernameInput = document.getElementById('usernameInput');
-const whitelistButton = document.getElementById('whitelistButton');
-const whitelistForm = document.getElementById('whitelist-form');
-const whitelistMessage = document.getElementById('whitelist-message');
+const clientId = '1423890573563002933';
+const redirectUri = 'https://yasseenassar.github.io';
 
 // TODO: Replace with your actual Azure Function App URL
 const azureFunctionBaseUrl = 'https://your-function-app-name.azurewebsites.net/api';
-// TODO: Replace with your actual API key
-const apiKey = 'YOUR_API_KEY';
 
-const startServerUrl = `${azureFunctionBaseUrl}/start-server`;
-const stopServerUrl = `${azureFunctionBaseUrl}/stop-server`;
-const getServerStatusUrl = `${azureFunctionBaseUrl}/get-server-status`;
-const whitelistPlayerUrl = `${azureFunctionBaseUrl}/whitelist-player`;
+// --- DOM Elements ---
+const loggedOutView = document.getElementById('loggedOutView');
+const loggedInView = document.getElementById('loggedInView');
+const loginButton = document.getElementById('loginButton');
+const welcomeMessage = document.getElementById('welcomeMessage');
 
-const fetchOptions = (method = 'GET', body = null) => {
-    const options = {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json',
-            'x-functions-key': apiKey
+// --- Page Load Logic ---
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+        // User has been redirected back from Discord, exchange code for token
+        // We remove the code from the URL so it doesn't get reused
+        window.history.replaceState({}, document.title, "/");
+        exchangeCodeForToken(code);
+    } else {
+        const accessToken = sessionStorage.getItem('discord_access_token');
+        if (accessToken) {
+            initializeLoggedInView(accessToken);
         }
-    };
-    if (body) {
-        options.body = JSON.stringify(body);
     }
-    return options;
 };
 
-startButton.addEventListener('click', () => {
-    setStatus('Starting...');
-    fetch(startServerUrl, fetchOptions('POST'))
-        .then(response => response.json())
-        .then(data => {
-            setStatus(data.status || 'Online');
-        })
-        .catch(error => {
-            console.error('Error starting server:', error);
-            setStatus('Error');
-        });
+// --- Authentication Flow ---
+loginButton.addEventListener('click', () => {
+    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify`;
+    window.location.href = discordAuthUrl;
 });
 
-stopButton.addEventListener('click', () => {
-    setStatus('Stopping...');
-    fetch(stopServerUrl, fetchOptions('POST'))
-        .then(response => response.json())
-        .then(data => {
-            setStatus(data.status || 'Offline');
-        })
-        .catch(error => {
-            console.error('Error stopping server:', error);
-            setStatus('Error');
-        });
-});
+function exchangeCodeForToken(code) {
+    fetch(`${azureFunctionBaseUrl}/auth-discord`, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to exchange code for token.');
+        return response.json();
+    })
+    .then(data => {
+        const accessToken = data.access_token;
+        sessionStorage.setItem('discord_access_token', accessToken);
+        initializeLoggedInView(accessToken);
+    })
+    .catch(error => {
+        console.error('Token exchange error:', error);
+        alert('There was an error logging you in. Please try again.');
+    });
+}
 
-statusButton.addEventListener('click', () => {
-    setStatus('Checking...');
-    fetch(getServerStatusUrl, fetchOptions())
-        .then(response => response.json())
-        .then(data => {
-            setStatus(data.status || 'Unknown');
-        })
-        .catch(error => {
-            console.error('Error checking status:', error);
-            setStatus('Error');
-        });
-});
+// --- Logged In Application Logic ---
+function initializeLoggedInView(accessToken) {
+    loggedOutView.style.display = 'none';
+    loggedInView.style.display = 'block';
 
-whitelistButton.addEventListener('click', () => {
-    const username = usernameInput.value.trim();
-    if (!username) {
-        setWhitelistMessage('Please enter a username.', 'error');
-        return;
-    }
+    // Fetch user info from Discord
+    fetch('https://discord.com/api/users/@me', {
+        headers: { 'Authorization': `Bearer ${accessToken}` }
+    })
+    .then(response => response.json())
+    .then(user => {
+        welcomeMessage.textContent = `Welcome, ${user.username}!`;
+        // Now that the user is logged in, set up the rest of the app
+        setupServerControls(accessToken);
+        setupWhitelistFeature(accessToken, user.id);
+    });
+}
 
-    setWhitelistMessage('Validating and whitelisting...', 'loading');
+function setupServerControls(accessToken) {
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const statusButton = document.getElementById('statusButton');
+    const statusSpan = document.getElementById('status');
 
-    fetch(whitelistPlayerUrl, fetchOptions('POST', { username: username }))
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw new Error(err.message || 'Whitelist failed') });
+    const fetchOptions = (method = 'GET', body = null) => {
+        const options = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
-            return response.json();
-        })
-        .then(data => {
-            setWhitelistMessage(data.message || 'Successfully whitelisted!', 'success');
-            whitelistForm.style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Error whitelisting player:', error);
-            setWhitelistMessage(error.message, 'error');
-        });
-});
+        };
+        if (body) options.body = JSON.stringify(body);
+        return options;
+    };
 
-function setStatus(status) {
-    statusSpan.textContent = status;
-    switch (status.toLowerCase()) {
-        case 'online':
-            statusSpan.style.color = '#66BB6A'; // Green
-            break;
-        case 'offline':
-            statusSpan.style.color = '#FF5733'; // Red
-            break;
-        default:
-            statusSpan.style.color = '#2196F3'; // Blue for intermediate states
-            break;
+    startButton.addEventListener('click', () => {
+        setStatus('Starting...');
+        fetch(`${azureFunctionBaseUrl}/start-server`, fetchOptions('POST')).then(handleResponse).catch(handleError);
+    });
+
+    stopButton.addEventListener('click', () => {
+        setStatus('Stopping...');
+        fetch(`${azureFunctionBaseUrl}/stop-server`, fetchOptions('POST')).then(handleResponse).catch(handleError);
+    });
+
+    statusButton.addEventListener('click', () => {
+        setStatus('Checking...');
+        fetch(`${azureFunctionBaseUrl}/get-server-status`, fetchOptions()).then(handleResponse).catch(handleError);
+    });
+
+    function handleResponse(response) {
+        if (!response.ok) return response.json().then(err => { throw new Error(err.message) });
+        return response.json().then(data => setStatus(data.status || 'Unknown'));
+    }
+    function handleError(error) {
+        console.error('Server control error:', error);
+        setStatus('Error');
+    }
+    function setStatus(status) {
+        statusSpan.textContent = status;
+        statusSpan.style.color = status === 'Online' ? '#66BB6A' : (status === 'Offline' ? '#FF5733' : '#2196F3');
     }
 }
 
-function setWhitelistMessage(message, type) {
-    whitelistMessage.textContent = message;
-    switch (type) {
-        case 'success':
-            whitelistMessage.style.color = '#66BB6A'; // Green
-            break;
-        case 'error':
-            whitelistMessage.style.color = '#FF5733'; // Red
-            break;
-        case 'loading':
-            whitelistMessage.style.color = '#2196F3'; // Blue
-            break;
-        default:
-            whitelistMessage.style.color = '#FFFFFF'; // White
-            break;
+function setupWhitelistFeature(accessToken, discordId) {
+    const whitelistSection = document.getElementById('whitelistSection');
+    const whitelistForm = document.getElementById('whitelist-form');
+    const usernameInput = document.getElementById('usernameInput');
+    const whitelistButton = document.getElementById('whitelistButton');
+    const whitelistMessage = document.getElementById('whitelist-message');
+
+    const fetchOptions = (body) => ({
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(body)
+    });
+
+    // Check if user is already whitelisted
+    fetch(`${azureFunctionBaseUrl}/whitelist-player`, fetchOptions({ action: 'check' }))
+    .then(res => res.json())
+    .then(data => {
+        if (data.isWhitelisted) {
+            whitelistSection.innerHTML = `<p>You have already whitelisted the Minecraft account: <strong>${data.minecraftUsername}</strong></p>`;
+        }
+    });
+
+    whitelistButton.addEventListener('click', () => {
+        const username = usernameInput.value.trim();
+        if (!username) {
+            setWhitelistMessage('Please enter a username.', 'error');
+            return;
+        }
+        setWhitelistMessage('Validating and whitelisting...', 'loading');
+
+        fetch(`${azureFunctionBaseUrl}/whitelist-player`, fetchOptions({ action: 'add', username: username }))
+        .then(response => {
+            if (!response.ok) return response.json().then(err => { throw new Error(err.message) });
+            return response.json();
+        })
+        .then(data => {
+            setWhitelistMessage(data.message, 'success');
+            whitelistForm.style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Whitelist error:', error);
+            setWhitelistMessage(error.message, 'error');
+        });
+    });
+
+    function setWhitelistMessage(message, type) {
+        whitelistMessage.textContent = message;
+        whitelistMessage.style.color = type === 'success' ? '#66BB6A' : (type === 'error' ? '#FF5733' : '#2196F3');
     }
 }
