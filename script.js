@@ -2,7 +2,7 @@ const clientId = '1423890573563002933';
 const redirectUri = 'https://yasseenassar.github.io';
 
 // TODO: Replace with your actual Azure Function App URL
-const azureFunctionBaseUrl = 'https://your-function-app-name.azurewebsites.net/api';
+const azureFunctionBaseUrl = 'https://<YOUR_FUNCTION_APP_NAME_HERE>.azurewebsites.net/api';
 
 // --- DOM Elements ---
 const loggedOutView = document.getElementById('loggedOutView');
