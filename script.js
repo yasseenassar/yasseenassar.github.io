@@ -78,6 +78,8 @@ function setupServerControls(accessToken) {
     const stopButton = document.getElementById('stopButton');
     const statusButton = document.getElementById('statusButton');
     const statusSpan = document.getElementById('status');
+    const serverAddressContainer = document.getElementById('serverAddressContainer');
+    const serverAddress = document.getElementById('serverAddress');
 
     const fetchOptions = (method = 'GET', body = null) => {
         const options = {
@@ -92,31 +94,39 @@ function setupServerControls(accessToken) {
     };
 
     startButton.addEventListener('click', () => {
-        setStatus('Starting...');
+        setStatus({ status: 'Starting...' });
         fetch(`${azureFunctionBaseUrl}/start-server`, fetchOptions('POST')).then(handleResponse).catch(handleError);
     });
 
     stopButton.addEventListener('click', () => {
-        setStatus('Stopping...');
+        setStatus({ status: 'Stopping...' });
         fetch(`${azureFunctionBaseUrl}/stop-server`, fetchOptions('POST')).then(handleResponse).catch(handleError);
     });
 
     statusButton.addEventListener('click', () => {
-        setStatus('Checking...');
+        setStatus({ status: 'Checking...' });
         fetch(`${azureFunctionBaseUrl}/get-server-status`, fetchOptions()).then(handleResponse).catch(handleError);
     });
 
     function handleResponse(response) {
         if (!response.ok) return response.json().then(err => { throw new Error(err.message) });
-        return response.json().then(data => setStatus(data.status || 'Unknown'));
+        return response.json().then(data => setStatus(data));
     }
     function handleError(error) {
         console.error('Server control error:', error);
-        setStatus('Error');
+        setStatus({ status: 'Error' });
     }
-    function setStatus(status) {
+    function setStatus(data) {
+        const status = data.status || 'Unknown';
         statusSpan.textContent = status;
         statusSpan.style.color = status === 'Online' ? '#66BB6A' : (status === 'Offline' ? '#FF5733' : '#2196F3');
+
+        if (status === 'Online' && data.address) {
+            serverAddress.textContent = data.address;
+            serverAddressContainer.style.display = 'block';
+        } else {
+            serverAddressContainer.style.display = 'none';
+        }
     }
 }
 
