@@ -30,7 +30,7 @@ window.onload = () => {
 
 // --- Authentication Flow ---
 loginButton.addEventListener('click', () => {
-    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify`;
+    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify email`;
     window.location.href = discordAuthUrl;
 });
 
