@@ -1,30 +1,28 @@
 const clientId = '1423890573563002933';
 const redirectUri = 'https://yasseenassar.github.io';
 
-// TODO: Replace with your actual Azure Function App URL
 const azureFunctionBaseUrl = 'https://bros-mc-controller.azurewebsites.net/api';
 
-// --- Sanity Check for Backend Configuration ---
-// This prevents network errors and security flags if the backend URL hasn't been set.
+
 const isBackendConfigured = !azureFunctionBaseUrl.includes('<YOUR_FUNCTION_APP_NAME_HERE>');
 if (!isBackendConfigured) {
     console.warn('Backend URL is not configured. Network features will be disabled. Please edit azureFunctionBaseUrl in script.js.');
 }
 
-// --- DOM Elements ---
+
 const loggedOutView = document.getElementById('loggedOutView');
 const loggedInView = document.getElementById('loggedInView');
 const loginButton = document.getElementById('loginButton');
 const welcomeMessage = document.getElementById('welcomeMessage');
 
-// --- Page Load Logic ---
+
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
 
     if (code) {
-        // User has been redirected back from Discord, exchange code for token
-        // We remove the code from the URL so it doesn't get reused
+        
+        
         window.history.replaceState({}, document.title, "/");
         exchangeCodeForToken(code);
     } else {
@@ -35,7 +33,7 @@ window.onload = () => {
     }
 };
 
-// --- Authentication Flow ---
+
 loginButton.addEventListener('click', () => {
     const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify email`;
     window.location.href = discordAuthUrl;
@@ -63,19 +61,19 @@ function exchangeCodeForToken(code) {
     });
 }
 
-// --- Logged In Application Logic ---
+
 function initializeLoggedInView(accessToken) {
     loggedOutView.style.display = 'none';
     loggedInView.style.display = 'block';
 
-    // Fetch user info from Discord
+    
     fetch('https://discord.com/api/users/@me', {
         headers: { 'Authorization': `Bearer ${accessToken}` }
     })
     .then(response => response.json())
     .then(user => {
         welcomeMessage.textContent = `Welcome, ${user.username}!`;
-        // Now that the user is logged in, set up the rest of the app
+        
         setupServerControls(accessToken);
         setupWhitelistFeature(accessToken, user.id);
     });
@@ -156,7 +154,7 @@ function setupWhitelistFeature(accessToken, discordId) {
         body: JSON.stringify(body)
     });
 
-    // Check if user is already whitelisted
+    
     fetch(`${azureFunctionBaseUrl}/whitelist-player`, fetchOptions({ action: 'check' }))
     .then(res => res.json())
     .then(data => {

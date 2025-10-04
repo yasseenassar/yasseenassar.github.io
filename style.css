@@ -19,12 +19,12 @@ body {
 
 h1 {
     font-size: 2.5em;
-    color: #66BB6A; /* A Minecraft green */
+    color: #66BB6A; 
     text-shadow: 2px 2px #000000;
 }
 
 #loginButton {
-    background-color: #5865F2; /* Discord Blurple */
+    background-color: #5865F2; 
     color: white;
     padding: 15px 32px;
     border: none;
@@ -51,11 +51,11 @@ h1 {
 
 #status {
     font-weight: bold;
-    color: #FF5733; /* Offline color */
+    color: #FF5733; 
 }
 
 .button-container button {
-    background-color: #4CAF50; /* A Minecraft-style green */
+    background-color: #4CAF50; 
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -74,7 +74,7 @@ h1 {
 }
 
 #stopButton {
-    background-color: #f44336; /* A red color for stop */
+    background-color: #f44336; 
 }
 
 #stopButton:hover {
@@ -82,7 +82,7 @@ h1 {
 }
 
 #statusButton {
-    background-color: #2196F3; /* A blue color for status */
+    background-color: #2196F3; 
 }
 
 #statusButton:hover {
@@ -100,11 +100,11 @@ h1 {
     font-family: 'Press Start 2P', cursive;
     background-color: #333;
     color: #fff;
-    width: 320px; /* Increased width for placeholder */
+    width: 320px; 
 }
 
 #whitelistButton {
-    background-color: #55397E; /* A purple color */
+    background-color: #55397E; 
     color: white;
     padding: 12px 20px;
     text-align: center;
@@ -125,5 +125,5 @@ h1 {
 #whitelist-message {
     margin-top: 15px;
     font-size: 1em;
-    min-height: 1.2em; /* Reserve space for the message */
+    min-height: 1.2em; 
 }
