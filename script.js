@@ -4,6 +4,13 @@ const redirectUri = 'https://yasseenassar.github.io';
 // TODO: Replace with your actual Azure Function App URL
 const azureFunctionBaseUrl = 'https://<YOUR_FUNCTION_APP_NAME_HERE>.azurewebsites.net/api';
 
+// --- Sanity Check for Backend Configuration ---
+// This prevents network errors and security flags if the backend URL hasn't been set.
+const isBackendConfigured = !azureFunctionBaseUrl.includes('<YOUR_FUNCTION_APP_NAME_HERE>');
+if (!isBackendConfigured) {
+    console.warn('Backend URL is not configured. Network features will be disabled. Please edit azureFunctionBaseUrl in script.js.');
+}
+
 // --- DOM Elements ---
 const loggedOutView = document.getElementById('loggedOutView');
 const loggedInView = document.getElementById('loggedInView');
@@ -35,6 +42,7 @@ loginButton.addEventListener('click', () => {
 });
 
 function exchangeCodeForToken(code) {
+    if (!isBackendConfigured) return;
     fetch(`${azureFunctionBaseUrl}/auth-discord`, { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
@@ -74,6 +82,7 @@ function initializeLoggedInView(accessToken) {
 }
 
 function setupServerControls(accessToken) {
+    if (!isBackendConfigured) return;
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
     const statusButton = document.getElementById('statusButton');
@@ -131,6 +140,7 @@ function setupServerControls(accessToken) {
 }
 
 function setupWhitelistFeature(accessToken, discordId) {
+    if (!isBackendConfigured) return;
     const whitelistSection = document.getElementById('whitelistSection');
     const whitelistForm = document.getElementById('whitelist-form');
     const usernameInput = document.getElementById('usernameInput');
