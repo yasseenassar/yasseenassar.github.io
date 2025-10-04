@@ -1,26 +1,64 @@
-const projectDisplay = document.getElementById('project-display');
-const generateBtn = document.getElementById('generate-btn');
+const startButton = document.getElementById('startButton');
+const stopButton = document.getElementById('stopButton');
+const statusButton = document.getElementById('statusButton');
+const statusSpan = document.getElementById('status');
 
-const projects = [
-    'Build a personal portfolio website.',
-    'Create a weather app that fetches data from an API.',
-    'Develop a simple to-do list application.',
-    'Build a recipe book where users can add and view recipes.',
-    'Create a blog application with a simple CMS.',
-    'Develop a chat application using WebSockets.',
-    'Build a simple e-commerce site with a shopping cart.',
-    'Create a memory game.',
-    'Develop a URL shortener service.',
-    'Build a simple quiz application.',
-    'Create a countdown timer.',
-    'Develop a simple drawing application.',
-    'Build a random quote generator.',
-    'Create a simple calculator.',
-    'Develop a Pomodoro timer.',
-];
+// TODO: Replace these placeholder URLs with your actual Azure Function URLs
+const azureFunctionBaseUrl = 'https://your-function-app-name.azurewebsites.net/api';
+const startServerUrl = `${azureFunctionBaseUrl}/start-server`;
+const stopServerUrl = `${azureFunctionBaseUrl}/stop-server`;
+const getServerStatusUrl = `${azureFunctionBaseUrl}/get-server-status`;
 
-generateBtn.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * projects.length);
-    const randomProject = projects[randomIndex];
-    projectDisplay.innerHTML = `<p>${randomProject}</p>`;
+startButton.addEventListener('click', () => {
+    setStatus('Starting...');
+    fetch(startServerUrl, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            setStatus(data.status || 'Online');
+        })
+        .catch(error => {
+            console.error('Error starting server:', error);
+            setStatus('Error');
+        });
 });
+
+stopButton.addEventListener('click', () => {
+    setStatus('Stopping...');
+    fetch(stopServerUrl, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            setStatus(data.status || 'Offline');
+        })
+        .catch(error => {
+            console.error('Error stopping server:', error);
+            setStatus('Error');
+        });
+});
+
+statusButton.addEventListener('click', () => {
+    setStatus('Checking...');
+    fetch(getServerStatusUrl)
+        .then(response => response.json())
+        .then(data => {
+            setStatus(data.status || 'Unknown');
+        })
+        .catch(error => {
+            console.error('Error checking status:', error);
+            setStatus('Error');
+        });
+});
+
+function setStatus(status) {
+    statusSpan.textContent = status;
+    switch (status.toLowerCase()) {
+        case 'online':
+            statusSpan.style.color = '#66BB6A'; // Green
+            break;
+        case 'offline':
+            statusSpan.style.color = '#FF5733'; // Red
+            break;
+        default:
+            statusSpan.style.color = '#2196F3'; // Blue for intermediate states
+            break;
+    }
+}

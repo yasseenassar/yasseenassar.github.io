@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Project Generator</title>
+    <title>Minecraft Server Control</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Random Project Generator</h1>
-        <div id="project-display">
-            <p>Click the button to get a random project idea!</p>
+        <h1>Minecraft Server Control</h1>
+        <div class="status-container">
+            <p>Server Status: <span id="status">Offline</span></p>
         </div>
-        <button id="generate-btn">Generate Project</button>
+        <div class="button-container">
+            <button id="startButton">Start Server</button>
+            <button id="stopButton">Stop Server</button>
+            <button id="statusButton">Check Status</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
