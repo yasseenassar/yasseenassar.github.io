@@ -18,6 +18,7 @@ const loginButton = document.getElementById('loginButton');
 const welcomeMessage = document.getElementById('welcomeMessage');
 
 // --- Page Load Logic ---
+/*
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -34,12 +35,15 @@ window.onload = () => {
         }
     }
 };
+*/
 
 // --- Authentication Flow ---
+/*
 loginButton.addEventListener('click', () => {
     const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify email`;
     window.location.href = discordAuthUrl;
 });
+*/
 
 function exchangeCodeForToken(code) {
     if (!isBackendConfigured) return;
