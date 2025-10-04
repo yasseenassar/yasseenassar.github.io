@@ -2,7 +2,7 @@ const clientId = '1423890573563002933';
 const redirectUri = 'https://yasseenassar.github.io';
 
 // TODO: Replace with your actual Azure Function App URL
-const azureFunctionBaseUrl = 'https://<YOUR_FUNCTION_APP_NAME_HERE>.azurewebsites.net/api';
+const azureFunctionBaseUrl = 'https://bros-mc-controller.azurewebsites.net/api';
 
 // --- Sanity Check for Backend Configuration ---
 // This prevents network errors and security flags if the backend URL hasn't been set.
@@ -18,6 +18,7 @@ const loginButton = document.getElementById('loginButton');
 const welcomeMessage = document.getElementById('welcomeMessage');
 
 // --- Page Load Logic ---
+/*
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -34,12 +35,15 @@ window.onload = () => {
         }
     }
 };
+*/
 
 // --- Authentication Flow ---
+/*
 loginButton.addEventListener('click', () => {
     const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify email`;
     window.location.href = discordAuthUrl;
 });
+*/
 
 function exchangeCodeForToken(code) {
     if (!isBackendConfigured) return;
