@@ -79,6 +79,7 @@ h1 {
     font-family: 'Press Start 2P', cursive;
     background-color: #333;
     color: #fff;
+    width: 320px; /* Increased width for placeholder */
 }
 
 #whitelistButton {
