@@ -67,3 +67,41 @@ h1 {
 #statusButton:hover {
     background-color: #0b7dda;
 }
+
+.whitelist-container {
+    margin-top: 30px;
+}
+
+#usernameInput {
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #333;
+    color: #fff;
+}
+
+#whitelistButton {
+    background-color: #55397E; /* A purple color */
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#whitelistButton:hover {
+    background-color: #472e67;
+}
+
+#whitelist-message {
+    margin-top: 15px;
+    font-size: 1em;
+    min-height: 1.2em; /* Reserve space for the message */
+}
