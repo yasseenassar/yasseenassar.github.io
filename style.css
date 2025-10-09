@@ -1,4 +1,132 @@
+/* General Styles */
 body {
+    background-color: #f4f4f9;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+/* Hero Section */
+.hero {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* Projects Section */
+.projects-section {
+    padding: 2rem 0;
+}
+
+.projects-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-card-content {
+    padding: 1.5rem;
+}
+
+.project-card h3 {
+    margin-top: 0;
+}
+
+.project-link {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 1rem;
+}
+
+/* Footer */
+.footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* Minecraft Page Specific Styles */
+.minecraft-body {
     background-color: #1E1E1E;
     color: #FFFFFF;
     font-family: 'Press Start 2P', cursive;
@@ -10,7 +138,7 @@ body {
     padding: 20px;
 }
 
-.container {
+.minecraft-container {
     text-align: center;
     background-color: #2D2D2D;
     padding: 40px;
@@ -20,50 +148,23 @@ body {
     max-width: 900px;
 }
 
-h1 {
+.minecraft-container h1 {
     font-size: 2.5em;
     color: #66BB6A; 
     text-shadow: 2px 2px #000000;
 }
 
-.project-card {
-    background-color: #333;
-    border: 2px solid #000;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 20px 0;
-}
-
-.project-card h2 {
-    color: #5865F2;
-}
-
-.project-link {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    display: inline-block;
-    margin-top: 10px;
-}
-
-.project-link:hover {
-    background-color: #45a049;
-}
-
-.status-container {
+.minecraft-container .status-container {
     margin: 20px 0;
     font-size: 1.2em;
 }
 
-#status {
+.minecraft-container #status {
     font-weight: bold;
     color: #FF5733; 
 }
 
-.button-container button {
+.minecraft-container .button-container button {
     background-color: #4CAF50; 
     color: white;
     padding: 15px 32px;
@@ -78,31 +179,31 @@ h1 {
     font-family: 'Press Start 2P', cursive;
 }
 
-.button-container button:hover {
+.minecraft-container .button-container button:hover {
     background-color: #45a049;
 }
 
-#stopButton {
+.minecraft-container #stopButton {
     background-color: #f44336; 
 }
 
-#stopButton:hover {
+.minecraft-container #stopButton:hover {
     background-color: #da190b;
 }
 
-#statusButton {
+.minecraft-container #statusButton {
     background-color: #2196F3; 
 }
 
-#statusButton:hover {
+.minecraft-container #statusButton:hover {
     background-color: #0b7dda;
 }
 
-.whitelist-container {
+.minecraft-container .whitelist-container {
     margin-top: 30px;
 }
 
-#usernameInput {
+.minecraft-container #usernameInput {
     padding: 10px;
     border: 2px solid #000;
     border-radius: 5px;
@@ -112,7 +213,7 @@ h1 {
     width: 320px; 
 }
 
-#whitelistButton {
+.minecraft-container #whitelistButton {
     background-color: #55397E; 
     color: white;
     padding: 12px 20px;
@@ -127,11 +228,11 @@ h1 {
     font-family: 'Press Start 2P', cursive;
 }
 
-#whitelistButton:hover {
+.minecraft-container #whitelistButton:hover {
     background-color: #472e67;
 }
 
-#whitelist-message {
+.minecraft-container #whitelist-message {
     margin-top: 15px;
     font-size: 1em;
     min-height: 1.2em; 
