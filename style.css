@@ -5,8 +5,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: 20px;
 }
 
 .container {
@@ -15,6 +16,8 @@ body {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 900px;
 }
 
 h1 {
@@ -23,25 +26,31 @@ h1 {
     text-shadow: 2px 2px #000000;
 }
 
-#loginButton {
-    background-color: #5865F2; 
-    color: white;
-    padding: 15px 32px;
-    border: none;
+.project-card {
+    background-color: #333;
+    border: 2px solid #000;
     border-radius: 5px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+    padding: 20px;
+    margin: 20px 0;
 }
 
-#loginButton:hover {
-    background-color: #4f5bda;
-}
-
-#welcomeMessage {
-    font-size: 1.2em;
+.project-card h2 {
     color: #5865F2;
+}
+
+.project-link {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.project-link:hover {
+    background-color: #45a049;
 }
 
 .status-container {

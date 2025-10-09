@@ -1,85 +1,20 @@
-const clientId = '1423890573563002933';
-const redirectUri = 'https://yasseenassar.github.io';
-
 const azureFunctionBaseUrl = 'https://bros-mc-controller.azurewebsites.net/api';
-
 
 const isBackendConfigured = !azureFunctionBaseUrl.includes('<YOUR_FUNCTION_APP_NAME_HERE>');
 if (!isBackendConfigured) {
     console.warn('Backend URL is not configured. Network features will be disabled. Please edit azureFunctionBaseUrl in script.js.');
 }
 
-
-const loggedOutView = document.getElementById('loggedOutView');
-const loggedInView = document.getElementById('loggedInView');
-const loginButton = document.getElementById('loginButton');
-const welcomeMessage = document.getElementById('welcomeMessage');
-
-
 window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-
-    if (code) {
-        
-        
-        window.history.replaceState({}, document.title, "/");
-        exchangeCodeForToken(code);
-    } else {
-        const accessToken = sessionStorage.getItem('discord_access_token');
-        if (accessToken) {
-            initializeLoggedInView(accessToken);
-        }
+    if (document.getElementById('startButton')) {
+        initializeServerControls();
+    }
+    if (document.getElementById('whitelistButton')) {
+        initializeWhitelistFeature();
     }
 };
 
-
-loginButton.addEventListener('click', () => {
-    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify email`;
-    window.location.href = discordAuthUrl;
-});
-
-function exchangeCodeForToken(code) {
-    if (!isBackendConfigured) return;
-    fetch(`${azureFunctionBaseUrl}/auth-discord`, { 
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code })
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Failed to exchange code for token.');
-        return response.json();
-    })
-    .then(data => {
-        const accessToken = data.access_token;
-        sessionStorage.setItem('discord_access_token', accessToken);
-        initializeLoggedInView(accessToken);
-    })
-    .catch(error => {
-        console.error('Token exchange error:', error);
-        alert('There was an error logging you in. Please try again.');
-    });
-}
-
-
-function initializeLoggedInView(accessToken) {
-    loggedOutView.style.display = 'none';
-    loggedInView.style.display = 'block';
-
-    
-    fetch('https://discord.com/api/users/@me', {
-        headers: { 'Authorization': `Bearer ${accessToken}` }
-    })
-    .then(response => response.json())
-    .then(user => {
-        welcomeMessage.textContent = `Welcome, ${user.username}!`;
-        
-        setupServerControls(accessToken);
-        setupWhitelistFeature(accessToken, user.id);
-    });
-}
-
-function setupServerControls(accessToken) {
+function initializeServerControls() {
     if (!isBackendConfigured) return;
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
@@ -93,7 +28,6 @@ function setupServerControls(accessToken) {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
             }
         };
         if (body) options.body = JSON.stringify(body);
@@ -137,7 +71,7 @@ function setupServerControls(accessToken) {
     }
 }
 
-function setupWhitelistFeature(accessToken, discordId) {
+function initializeWhitelistFeature() {
     if (!isBackendConfigured) return;
     const whitelistSection = document.getElementById('whitelistSection');
     const whitelistForm = document.getElementById('whitelist-form');
@@ -149,18 +83,8 @@ function setupWhitelistFeature(accessToken, discordId) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify(body)
-    });
-
-    
-    fetch(`${azureFunctionBaseUrl}/whitelist-player`, fetchOptions({ action: 'check' }))
-    .then(res => res.json())
-    .then(data => {
-        if (data.isWhitelisted) {
-            whitelistSection.innerHTML = `<p>You have already whitelisted the Minecraft account: <strong>${data.minecraftUsername}</strong></p>`;
-        }
     });
 
     whitelistButton.addEventListener('click', () => {
