@@ -3,58 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yasseen Nassar - Portfolio</title>
+    <title>Yasseen Nassar</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">YN</a>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section id="hero" class="hero">
-        <div class="container">
+    <div class="container">
+        <header class="main-header">
             <h1>Yasseen Nassar</h1>
-            <p class="subtitle">Software Developer | Creative Coder</p>
-        </div>
-    </section>
+        </header>
 
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2>My Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <h3>Minecraft Server Control</h3>
-                        <p>A simple interface to start, stop, and check the status of a Minecraft server.</p>
-                        <a href="minecraft.html" class="project-link">View Project</a>
-                    </div>
+        <main>
+            <section class="project-list">
+                <div class="project-item">
+                    <h2><a href="minecraft.html">Minecraft Server Control</a></h2>
+                    <p>A simple interface to start, stop, and check the status of a Minecraft server.</p>
                 </div>
-                <!-- Add more project cards here -->
-            </div>
-        </div>
-    </section>
+                <!-- Add more project items here -->
+            </section>
+        </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="#">GitHub</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Twitter</a>
-            </div>
-            <p>&copy; 2025 Yasseen Nassar. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+        <footer class="main-footer">
+            <p>&copy; 2025 Yasseen Nassar</p>
+        </footer>
+    </div>
 </body>
 </html>
