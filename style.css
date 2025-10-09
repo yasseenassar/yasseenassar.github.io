@@ -1,7 +1,14 @@
 /* General Styles */
+:root {
+    --primary-color: #007bff;
+    --dark-color: #333;
+    --light-color: #f4f4f9;
+    --secondary-color: #6c757d;
+}
+
 body {
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: var(--light-color);
+    color: var(--dark-color);
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     margin: 0;
@@ -16,12 +23,13 @@ body {
 
 /* Header */
 .header {
-    background: #333;
+    background: var(--dark-color);
     color: #fff;
     padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 3px solid var(--primary-color);
 }
 
 .navbar {
@@ -50,23 +58,30 @@ body {
     color: #fff;
     text-decoration: none;
     font-weight: 300;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
 }
 
 /* Hero Section */
 .hero {
-    background: #333;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1522252234503-e356532cafd5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
     color: #fff;
     text-align: center;
-    padding: 4rem 0;
+    padding: 6rem 0;
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 0.5rem;
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 300;
 }
 
@@ -78,7 +93,8 @@ body {
 .projects-section h2 {
     text-align: center;
     margin-bottom: 2rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: var(--dark-color);
 }
 
 .project-grid {
@@ -89,13 +105,15 @@ body {
 
 .project-card {
     background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
 }
 
 .project-card-content {
@@ -104,25 +122,42 @@ body {
 
 .project-card h3 {
     margin-top: 0;
+    color: var(--primary-color);
 }
 
 .project-link {
     display: inline-block;
-    background: #333;
+    background: var(--primary-color);
     color: #fff;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     text-decoration: none;
-    border-radius: 3px;
+    border-radius: 5px;
     margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.project-link:hover {
+    background: #0056b3;
 }
 
 /* Footer */
 .footer {
-    background: #333;
+    background: var(--dark-color);
     color: #fff;
     text-align: center;
-    padding: 1rem 0;
+    padding: 2rem 0;
     margin-top: 2rem;
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
 }
 
 /* Minecraft Page Specific Styles */
