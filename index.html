@@ -3,28 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yasseen Nassar</title>
+    <meta name="description" content="Yasseen Nassar – personal projects, experiments, and tools built to make real-world problems easier.">
+    <title>Yasseen Nassar | Personal Projects</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="main-header">
-            <h1>Personal Projects</h1>
+    <div class="page" id="home">
+        <header class="site-header">
+            <div class="nav-bar container">
+                <a href="#home" class="brand">YASSEEN NASSAR</a>
+                <nav class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Toolkit</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+
+            <div class="hero container">
+                <p class="hero-eyebrow">Engineer · Systems Thinker · Builder</p>
+                <h1 class="hero-title">I create purposeful tools that bridge ideas with real-world impact.</h1>
+                <p class="hero-copy">
+                    From automation pipelines to playful experiments, I explore how thoughtful software can unlock better
+                    communities, workflows, and collaboration. Every project is a chance to learn fast, ship responsibly, and make something people love to use.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn--primary" href="#projects">Explore the work</a>
+                    <a class="btn btn--ghost" href="#contact">Let's collaborate</a>
+                </div>
+            </div>
         </header>
 
         <main>
-            <section class="project-list">
-                <div class="project-item">
-                    <h2><a href="minecraft.html">Minecraft Server Control</a></h2>
-                    <p>A simple interface to start, stop, and check the status of a Minecraft server.</p>
+            <section id="about" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-eyebrow">About</span>
+                        <h2 class="section-title">Curiosity-led engineering with a bias for shipping thoughtful experiences.</h2>
+                        <p class="section-description">
+                            I enjoy connecting backend reliability with refined front-end interactions, keeping the developer experience tight along the way.
+                            Clean architecture, clear feedback loops, and measurable outcomes are usually the constants in anything I build.
+                        </p>
+                    </div>
+
+                    <div class="about-content">
+                        <article class="info-card">
+                            <h3>What drives my work</h3>
+                            <ul>
+                                <li>Human-centered automation that makes complex systems feel effortless.</li>
+                                <li>Playful experimentation that teaches something new with every iteration.</li>
+                                <li>Strong documentation and tooling so collaborators can move faster together.</li>
+                            </ul>
+                        </article>
+
+                        <article class="info-card">
+                            <h3>Highlights at a glance</h3>
+                            <dl class="stat-list">
+                                <div class="stat">
+                                    <dt>Projects Shipped</dt>
+                                    <dd>20+</dd>
+                                </div>
+                                <div class="stat">
+                                    <dt>Focus Areas</dt>
+                                    <dd>Platforms · Tooling</dd>
+                                </div>
+                                <div class="stat">
+                                    <dt>Currently Exploring</dt>
+                                    <dd>Infra UX</dd>
+                                </div>
+                                <div class="stat">
+                                    <dt>Community</dt>
+                                    <dd>Open Source</dd>
+                                </div>
+                            </dl>
+                        </article>
+                    </div>
                 </div>
-                <!-- Add more project items here -->
+            </section>
+
+            <section id="skills" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-eyebrow">Toolkit</span>
+                        <h2 class="section-title">A flexible stack tuned for reliability, experimentation, and growth.</h2>
+                        <p class="section-description">
+                            From the first prototype to production-ready systems, these are the core technologies and practices I reach for.
+                        </p>
+                    </div>
+                    <ul class="chip-list">
+                        <li class="chip">TypeScript</li>
+                        <li class="chip">React &amp; Next.js</li>
+                        <li class="chip">Node.js</li>
+                        <li class="chip">Python</li>
+                        <li class="chip">Azure &amp; AWS</li>
+                        <li class="chip">Serverless</li>
+                        <li class="chip">Docker</li>
+                        <li class="chip">CI/CD</li>
+                        <li class="chip">Design Systems</li>
+                        <li class="chip">UX Research</li>
+                        <li class="chip">Data Visualization</li>
+                        <li class="chip">Observability</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="projects" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-eyebrow">Projects</span>
+                        <h2 class="section-title">A curated mix of shipped work, experiments, and ongoing builds.</h2>
+                        <p class="section-description">
+                            Each project pairs a clear problem with a pragmatic solution — often shipping internal tooling, automation, or community-focused experiences.
+                        </p>
+                    </div>
+
+                    <div class="project-grid">
+                        <article class="project-card">
+                            <span class="project-card__meta">2024 · Automation</span>
+                            <h3>Minecraft Server Control</h3>
+                            <p>
+                                A polished control center that lets friends launch, pause, and monitor a shared Minecraft server with guardrails built on Azure Functions.
+                            </p>
+                            <ul class="tag-list">
+                                <li>Serverless</li>
+                                <li>Azure</li>
+                                <li>UI Engineering</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="minecraft.html">Open control panel</a>
+                            </div>
+                        </article>
+
+                        <article class="project-card">
+                            <span class="project-card__meta">2024 · Insights</span>
+                            <h3>Flowstate Personal Dashboard</h3>
+                            <p>
+                                A daily operating system that merges tasks, quantified-self metrics, and focus scoring into a single adaptive workspace driven by edge functions.
+                            </p>
+                            <ul class="tag-list">
+                                <li>Next.js</li>
+                                <li>Edge Workers</li>
+                                <li>Design Systems</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="https://github.com/yasseenassar" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                            </div>
+                        </article>
+
+                        <article class="project-card">
+                            <span class="project-card__meta">2023 · Community</span>
+                            <h3>Neighbourhood Sensors Network</h3>
+                            <p>
+                                A resilient IoT mesh that aggregates local air-quality data and delivers real-time alerts to community dashboards and SMS subscribers.
+                            </p>
+                            <ul class="tag-list">
+                                <li>IoT</li>
+                                <li>Python</li>
+                                <li>Data Viz</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="https://github.com/yasseenassar" target="_blank" rel="noopener noreferrer">Architecture notes</a>
+                            </div>
+                        </article>
+
+                        <article class="project-card">
+                            <span class="project-card__meta">In progress · R&amp;D</span>
+                            <h3>Infra UX Studio</h3>
+                            <p>
+                                A set of opinionated templates that turn cloud infrastructure decisions into guided, collaborative workshops with instant feedback.
+                            </p>
+                            <ul class="tag-list">
+                                <li>Product Strategy</li>
+                                <li>Workshop Design</li>
+                                <li>DevEx</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="#contact">Request early access</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section">
+                <div class="container">
+                    <div class="contact-card">
+                        <span class="section-eyebrow">Contact</span>
+                        <h2 class="section-title">Building something meaningful? Let’s make the next move together.</h2>
+                        <p class="section-description">
+                            I’m always up for joining forces on thoughtful engineering, community-driven tech, or mentoring the next wave of builders.
+                        </p>
+                        <div class="contact-actions">
+                            <a class="btn btn--primary" href="mailto:hello@yasseenassar.dev">Email me</a>
+                            <a class="btn btn--ghost" href="https://github.com/yasseenassar" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
 
-        <footer class="main-footer">
-            <p>&copy; 2025 Yasseen Nassar</p>
+        <footer class="site-footer">
+            <div class="container">
+                <p>&copy; 2025 Yasseen Nassar. Built with intent and a love for well-crafted experiences.</p>
+                <div class="footer-links">
+                    <a href="#home">Back to top</a>
+                    <a href="mailto:hello@yasseenassar.dev">Email</a>
+                    <a href="https://github.com/yasseenassar" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
         </footer>
     </div>
 </body>

@@ -8,31 +8,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body class="minecraft-body">
-    <div class="minecraft-container">
-        <h1>Minecraft Server Control</h1>
+    <div class="minecraft-layout">
+        <header class="minecraft-header">
+            <a class="minecraft-back" href="index.html">← Back to projects</a>
+            <span>Launch nights made simple</span>
+        </header>
 
-        <div id="mainView">
-            <div class="status-container">
-                <p>Server Status: <span id="status">Offline</span></p>
-                <p id="serverAddressContainer" style="display: none;">Server Address: <span id="serverAddress"></span></p>
-            </div>
-            <div class="button-container">
-                <button id="startButton">Start Server</button>
-                <button id="stopButton">Stop Server</button>
-                <button id="statusButton">Check Status</button>
-            </div>
+        <main class="minecraft-main">
+            <section class="minecraft-container">
+                <h1>Minecraft Server Control</h1>
+                <p class="minecraft-summary">
+                    Manage the shared server without touching the command line. Kick off play sessions, pause the world to save resources,
+                    and make sure your crew always has access.
+                </p>
 
-            <div id="whitelistSection">
-                <div class="whitelist-container">
-                    <h2>Whitelist a Player</h2>
-                    <div id="whitelist-form">
-                        <input type="text" id="usernameInput" placeholder="Enter Minecraft Username">
-                        <button id="whitelistButton">Whitelist Me</button>
+                <div class="auth-gate" id="authGate">
+                    <div class="auth-gate__content">
+                        <h2>Verify with Discord to continue</h2>
+                        <p class="auth-gate__copy">
+                            We use Discord verification to keep the server safe. Connect your account once and you’ll stay signed in on this device.
+                        </p>
+                        <div class="auth-gate__actions">
+                            <button id="discordLoginButton" class="btn btn--primary">Connect Discord</button>
+                            <button id="discordLogoutButton" class="btn btn--ghost" style="display: none;">Sign out</button>
+                        </div>
+                        <p id="authStatusMessage" class="auth-gate__status"></p>
                     </div>
-                    <p id="whitelist-message"></p>
                 </div>
-            </div>
-        </div>
+
+                <div class="status-panel">
+                    <div class="status-row">
+                        <span class="status-bullet" id="statusIndicator"></span>
+                        <p>Server Status: <span id="status">Offline</span></p>
+                    </div>
+                    <p id="serverAddressContainer" style="display: none;">Server Address: <span id="serverAddress"></span></p>
+                </div>
+
+                <div class="button-container">
+                    <button id="startButton">Start Server</button>
+                    <button id="stopButton">Stop Server</button>
+                    <button id="statusButton">Check Status</button>
+                </div>
+
+                <div id="whitelistSection">
+                    <div class="whitelist-container">
+                        <h2>Whitelist a Player</h2>
+                        <div id="whitelist-form">
+                            <input type="text" id="usernameInput" placeholder="Enter Minecraft Username">
+                            <button id="whitelistButton">Whitelist Me</button>
+                        </div>
+                        <p id="whitelist-message"></p>
+                    </div>
+                </div>
+
+                <p class="minecraft-note">
+                    Heads-up: status checks may take a few moments. Keep the page open until you see confirmation.
+                </p>
+            </section>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
